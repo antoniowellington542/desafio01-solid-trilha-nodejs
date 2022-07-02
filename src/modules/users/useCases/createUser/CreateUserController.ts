@@ -8,9 +8,14 @@ class CreateUserController {
   handle(request: Request, response: Response): Response {
     const { name, email } = request.body;
 
-    this.createUserUseCase.execute({ name, email });
-
-    return response.status(201).send();
+    try {
+      this.createUserUseCase.execute({ name, email });
+      return response.status(201).send();
+    } catch (err) {
+      return response.status(400).json({
+        error: err.message,
+      });
+    }
   }
 }
 
