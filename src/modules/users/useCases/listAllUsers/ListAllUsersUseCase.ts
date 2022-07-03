@@ -9,13 +9,12 @@ class ListAllUsersUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   execute({ user_id }: IRequest): User[] {
-    const userIsAdmin = this.usersRepository.findById(user_id);
-    if (!userIsAdmin.admin) {
-      throw new Error("Operation only available for admin!");
+    const userAlreadyExists = this.usersRepository.findById(user_id);
+    if (!userAlreadyExists || !userAlreadyExists.admin) {
+      throw new Error("User not Found or not is Admin!");
     }
-
-    const list = this.usersRepository.list();
-    return list;
+    const users = this.usersRepository.list();
+    return users;
   }
 }
 

@@ -15,9 +15,8 @@ class CreateUserUseCase {
       throw new Error("User Already Exists!");
     }
 
-    this.usersRepository.create({ name, email });
-
-    return userAlreadyExists;
+    const user = this.usersRepository.create({ name, email });
+    return user;
   }
 }
 
