@@ -1,0 +1,118 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Desafio01 - Solid",
+        "description": "Documentation about The Challenge 01 - Solid API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create User",
+                "description": "Create a new User",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Antonio Wellington da Silva",
+                                    "email": "antoniowellington542@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User created"
+                    },
+                    "404": {
+                        "description": "User not exists!"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["User"],
+                "summary": "Listar Usuários",
+                "description": "Retorna todos os Usuários",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Found!"
+                    },
+                    "404": {
+                        "description": "User not Found or not is Admin!"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": ["User"],
+                "summary": "Buscar Usuário",
+                "description": "Busca um Usuário pelo ID",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Found!"
+                    },
+                    "404": {
+                        "description": "User not exists!"
+                    }
+                }   
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": ["User"],
+                "summary": "Conceder Permissão de Administrador",
+                "description": "Concede permissão de administrador a um usuário usando o ID",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Congratulations! You are a Admin"
+                    },
+                    "404": {
+                        "description": "Sorry!User not exists in Database"
+                    }
+                }
+            }
+        }
+    }
+}
